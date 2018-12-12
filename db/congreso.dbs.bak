@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="dzp" id="Project_16b8e2d" template="Default" database="MySql" >
+	<schema name="congreso" catalogname="congreso" >
+		<table name="administrador" >
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="permisos" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<index name="pk_administrador" unique="PRIMARY_KEY" >
+				<column name="id_user" />
+			</index>
+		</table>
+		<table name="asiste_confer" >
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="id_conferencia" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="asistencia" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<index name="pk_asiste_confer" unique="PRIMARY_KEY" >
+				<column name="id_user" />
+				<column name="id_conferencia" />
+			</index>
+			<index name="id_conferencia" unique="NORMAL" >
+				<column name="id_conferencia" />
+			</index>
+			<fk name="asiste_confer_ibfk_1" to_schema="congreso" to_table="conferencia" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_conferencia" pk="id" />
+			</fk>
+			<fk name="asiste_confer_ibfk_2" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_user" pk="id" />
+			</fk>
+		</table>
+		<table name="asiste_evento" >
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="id_evento" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="asistencia" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<column name="asiento" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="camion" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<index name="pk_asiste_evento" unique="PRIMARY_KEY" >
+				<column name="id_user" />
+				<column name="id_evento" />
+			</index>
+			<index name="id_evento" unique="NORMAL" >
+				<column name="id_evento" />
+			</index>
+			<fk name="asiste_evento_ibfk_2" to_schema="congreso" to_table="evento_social" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_evento" pk="id" />
+			</fk>
+			<fk name="asiste_evento_ibfk_1" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_user" pk="id" />
+			</fk>
+		</table>
+		<table name="asiste_taller" >
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="id_taller" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="asistencia" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<index name="pk_asiste_taller" unique="PRIMARY_KEY" >
+				<column name="id_user" />
+				<column name="id_taller" />
+			</index>
+			<index name="id_taller" unique="NORMAL" >
+				<column name="id_taller" />
+			</index>
+			<fk name="asiste_taller_ibfk_2" to_schema="congreso" to_table="taller" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_taller" pk="id" />
+			</fk>
+			<fk name="asiste_taller_ibfk_1" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_user" pk="id" />
+			</fk>
+		</table>
+		<table name="asiste_visita" >
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="id_visita" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="asistencia" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<index name="pk_asiste_visita" unique="PRIMARY_KEY" >
+				<column name="id_user" />
+				<column name="id_visita" />
+			</index>
+			<index name="id_visita" unique="NORMAL" >
+				<column name="id_visita" />
+			</index>
+			<fk name="asiste_visita_ibfk_2" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_user" pk="id" />
+			</fk>
+			<fk name="asiste_visita_ibfk_1" to_schema="congreso" to_table="visita_indus" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_visita" pk="id" />
+			</fk>
+		</table>
+		<table name="conferencia" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="nombre" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="descripcion" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="lugar_conf" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="fecha" type="date" length="10" decimal="0" jt="91" mandatory="y" />
+			<column name="hora" type="time" length="8" decimal="0" jt="92" mandatory="y" />
+			<column name="id_conferencista" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="costo" type="double" length="22" decimal="0" jt="8" mandatory="y" />
+			<column name="cupo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<index name="pk_conferencia" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="id_conferencista" unique="NORMAL" >
+				<column name="id_conferencista" />
+			</index>
+			<fk name="conferencia_ibfk_1" to_schema="congreso" to_table="conferencista" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_conferencista" pk="id" />
+			</fk>
+		</table>
+		<table name="conferencista" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="nombre" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="apellidos" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="genero" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<column name="correo" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="telefono" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="institucion" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="biografia" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<index name="pk_conferencista" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="datos_fiscales" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="RFC" type="char" length="12" decimal="0" jt="1" mandatory="y" />
+			<column name="Razon_Social" type="char" length="120" decimal="0" jt="1" mandatory="y" />
+			<column name="Domicilio" type="char" length="120" decimal="0" jt="1" mandatory="y" />
+			<column name="CP" type="char" length="6" decimal="0" jt="1" mandatory="y" />
+			<column name="Ciudad" type="char" length="50" decimal="0" jt="1" mandatory="y" />
+			<column name="Estado" type="char" length="30" decimal="0" jt="1" mandatory="y" />
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="facturado" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<index name="pk_datos_fiscales" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="id_user" unique="NORMAL" >
+				<column name="id_user" />
+			</index>
+			<fk name="datos_fiscales_ibfk_1" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_user" pk="id" />
+			</fk>
+		</table>
+		<table name="datos_reconocimientos" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="posiX" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="posiY" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="tipo" type="set" length="5" decimal="0" jt="12" mandatory="y" >
+				<enumeration>&#039;T&#039;,&#039;I&#039;,&#039;C&#039;</enumeration>
+				<comment><![CDATA[Texto,imagen,Campo]]></comment>
+			</column>
+			<column name="Contenido" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="I" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="N" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="S" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="ancho" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="alto" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[si es texto son mm de cada renglon]]></comment>
+			</column>
+			<column name="TLetra" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="orden" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<defo>1</defo>
+			</column>
+			<column name="cat" type="set" length="13" decimal="0" jt="12" mandatory="y" >
+				<enumeration>&#039;C&#039;,&#039;P&#039;,&#039;R&#039;,&#039;F&#039;,&#039;1&#039;,&#039;2&#039;,&#039;S&#039;</enumeration>
+				<comment><![CDATA[Carta de aceptación o diploma ponente]]></comment>
+			</column>
+			<index name="pk_datos_reconocimientos" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="egresos" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="concepto" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="monto" type="float" length="12" decimal="0" jt="7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="tipo" type="set" length="3" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;E&#039;</defo>
+				<enumeration>&#039;I&#039;,&#039;E&#039;</enumeration>
+			</column>
+			<index name="pk_egresos" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="evento_social" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="evento" type="varchar" length="300" decimal="0" jt="12" mandatory="y" />
+			<column name="lugar" type="varchar" length="100" decimal="0" jt="12" />
+			<column name="observaciones" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="fecha" type="date" length="10" decimal="0" jt="91" />
+			<column name="hora" type="time" length="8" decimal="0" jt="92" />
+			<column name="costo" type="double" length="22" decimal="0" jt="8" mandatory="y" />
+			<column name="cupo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="transporte" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" />
+			<index name="pk_evento_social" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="ficha_deposito" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="ficha" type="varchar" length="100" decimal="0" jt="12" />
+			<column name="monto" type="float" length="12" decimal="0" jt="7" mandatory="y" />
+			<column name="idUser" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="idAutorizo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="ref_bancaria" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="fecha" type="date" length="10" decimal="0" jt="91" mandatory="y" />
+			<column name="Factura" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<column name="tipo_pago" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+				<defo>0</defo>
+				<comment><![CDATA[1Art 2Con 3 CoA]]></comment>
+			</column>
+			<column name="cuenta" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<index name="pk_ficha_deposito" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idAutorizo" unique="NORMAL" >
+				<column name="idAutorizo" />
+			</index>
+			<index name="idUser" unique="NORMAL" >
+				<column name="idUser" />
+			</index>
+			<fk name="ficha_deposito_ibfk_1" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="idUser" pk="id" />
+			</fk>
+		</table>
+		<table name="logos" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="imagen" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="posicion" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="ancho" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="max_ancho" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="enlace" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+			<column name="float" type="char" length="7" decimal="0" jt="1" mandatory="y" />
+			<index name="pk_logos" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="mensajes" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="mensaje" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<index name="pk_mensajes" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="pagos_efectivo" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="monto" type="float" length="12" decimal="0" jt="7" mandatory="y" />
+			<column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[id_user/id_articulo]]></comment>
+			</column>
+			<column name="tipo_pago" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+				<comment><![CDATA[congreso/articulo]]></comment>
+			</column>
+			<column name="id_autorizo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="Factura" type="char" length="1" decimal="0" jt="1" mandatory="y" />
+			<index name="pk_pagos_efectivo" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="id_autorizo" unique="NORMAL" >
+				<column name="id_autorizo" />
+			</index>
+			<index name="id_user" unique="NORMAL" >
+				<column name="id_user" />
+			</index>
+			<fk name="pagos_efectivo_ibfk_1" to_schema="congreso" to_table="usuario" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_user" pk="id" />
+			</fk>
+		</table>
+		<table name="taller" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="nombre" type="varchar" length="100" decimal="0" jt="12" />
+			<column name="descripcion" type="text" length="65535" decimal="0" jt="-1" />
+			<column name="Temario" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="Requisitos" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="lugar" type="varchar" length="100" decimal="0" jt="12" />
+			<column name="fecha" type="date" length="10" decimal="0" jt="91" />
+			<column name="hora" type="time" length="8" decimal="0" jt="92" />
+			<column name="id_tallerista" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="costo" type="double" length="22" decimal="0" jt="8" mandatory="y" />
+			<column name="cupo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<index name="pk_taller" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="id_tallerista" unique="NORMAL" >
+				<column name="id_tallerista" />
+			</index>
+			<fk name="taller_ibfk_1" to_schema="congreso" to_table="tallerista" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_tallerista" pk="id" />
+			</fk>
+		</table>
+		<table name="tallerista" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="nombre" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="apellidos" type="varchar" length="35" decimal="0" jt="12" mandatory="y" />
+			<column name="correo" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="curriculum" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="institucion" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_tallerista" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="tipo_user" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="usuario" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_tipo_user" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="usuario" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="correo" type="char" length="70" decimal="0" jt="1" mandatory="y" />
+			<column name="nombre" type="char" length="25" decimal="0" jt="1" />
+			<column name="apellidos" type="char" length="25" decimal="0" jt="1" />
+			<column name="fechUltiAcceso" type="datetime" length="19" decimal="0" jt="93" />
+			<column name="pwd" type="char" length="45" decimal="0" jt="1" />
+			<column name="id_tipo" type="int" length="10" decimal="0" jt="4" >
+				<defo>1</defo>
+			</column>
+			<column name="estaPago" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+			</column>
+			<column name="diploCongreso" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="descDiploma" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<index name="pk_usuario" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="correo" unique="UNIQUE" >
+				<column name="correo" />
+			</index>
+			<index name="id_tipo" unique="NORMAL" >
+				<column name="id_tipo" />
+			</index>
+			<fk name="usuario_ibfk_1" to_schema="congreso" to_table="tipo_user" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id_tipo" pk="id" />
+			</fk>
+		</table>
+		<table name="visita_indus" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="empresa" type="varchar" length="100" decimal="0" jt="12" />
+			<column name="fecha" type="date" length="10" decimal="0" jt="91" />
+			<column name="hora" type="time" length="8" decimal="0" jt="92" />
+			<column name="costo" type="double" length="22" decimal="0" jt="8" mandatory="y" />
+			<column name="cupo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="descripcion" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="observaciones" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<index name="pk_visita_indus" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+	</schema>
+	<connector name="dzp" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.46.jar" driver_desc="Standard" host="localhost" port="3306" instance="congreso" user="root" passwd="dG9vcg==" />
+	<layout name="Default Layout" id="Layout_424ca0" show_relation="columns" >
+		<entity schema="congreso" name="administrador" color="BEBEF4" x="976" y="960" />
+		<entity schema="congreso" name="asiste_confer" color="F4DDBE" x="768" y="480" />
+		<entity schema="congreso" name="asiste_evento" color="BED3F4" x="400" y="192" />
+		<entity schema="congreso" name="asiste_taller" color="C7F4BE" x="768" y="48" />
+		<entity schema="congreso" name="asiste_visita" color="BED3F4" x="400" y="464" />
+		<entity schema="congreso" name="datos_fiscales" color="BED3F4" x="224" y="464" />
+		<entity schema="congreso" name="datos_reconocimientos" color="BEBEF4" x="768" y="784" />
+		<entity schema="congreso" name="egresos" color="BEBEF4" x="1136" y="960" />
+		<entity schema="congreso" name="evento_social" color="BED3F4" x="560" y="192" />
+		<entity schema="congreso" name="ficha_deposito" color="BED3F4" x="48" y="464" />
+		<entity schema="congreso" name="logos" color="BEBEF4" x="976" y="1104" />
+		<entity schema="congreso" name="mensajes" color="BEBEF4" x="832" y="1104" />
+		<entity schema="congreso" name="pagos_efectivo" color="BED3F4" x="64" y="256" />
+		<entity schema="congreso" name="taller" color="C7F4BE" x="928" y="48" />
+		<entity schema="congreso" name="tallerista" color="C7F4BE" x="1088" y="48" />
+		<entity schema="congreso" name="tipo_user" color="BED3F4" x="80" y="48" />
+		<entity schema="congreso" name="usuario" color="BED3F4" x="224" y="192" />
+		<entity schema="congreso" name="visita_indus" color="BED3F4" x="560" y="464" />
+		<entity schema="congreso" name="conferencista" color="F4DDBE" x="1136" y="480" />
+		<entity schema="congreso" name="conferencia" color="F4DDBE" x="944" y="480" />
+	</layout>
+	<layout name="Sample Layout with Tools" id="Layout_aa580e" show_column_type="y" show_relation="columns" >
+		<entity schema="congreso" name="administrador" color="BEBEF4" x="1136" y="1136" />
+		<entity schema="congreso" name="asiste_confer" color="F4DDBE" x="928" y="512" />
+		<entity schema="congreso" name="asiste_evento" color="BED3F4" x="496" y="224" />
+		<entity schema="congreso" name="asiste_taller" color="C7F4BE" x="928" y="80" />
+		<entity schema="congreso" name="asiste_visita" color="BED3F4" x="496" y="496" />
+		<entity schema="congreso" name="conferencia" color="F4DDBE" x="1120" y="512" />
+		<entity schema="congreso" name="conferencista" color="F4DDBE" x="1344" y="512" />
+		<entity schema="congreso" name="datos_fiscales" color="BED3F4" x="272" y="496" />
+		<entity schema="congreso" name="datos_reconocimientos" color="BEBEF4" x="928" y="816" />
+		<entity schema="congreso" name="egresos" color="BEBEF4" x="1312" y="1136" />
+		<entity schema="congreso" name="evento_social" color="BED3F4" x="688" y="224" />
+		<entity schema="congreso" name="ficha_deposito" color="BED3F4" x="48" y="496" />
+		<entity schema="congreso" name="logos" color="BEBEF4" x="1104" y="1280" />
+		<entity schema="congreso" name="mensajes" color="BEBEF4" x="976" y="1136" />
+		<entity schema="congreso" name="pagos_efectivo" color="BED3F4" x="80" y="288" />
+		<entity schema="congreso" name="taller" color="C7F4BE" x="1120" y="80" />
+		<entity schema="congreso" name="tallerista" color="C7F4BE" x="1328" y="80" />
+		<entity schema="congreso" name="tipo_user" color="BED3F4" x="64" y="80" />
+		<entity schema="congreso" name="usuario" color="BED3F4" x="272" y="224" />
+		<entity schema="congreso" name="visita_indus" color="BED3F4" x="688" y="496" />
+		<callout x="272" y="160" pointer="NO" >
+			<comment><![CDATA[Double-click any table, column or foreign key to edit, right-click to start one of the tools below.
+Use the Relational Data Browse for simultaneously exploring data from multiple tables.
+All tools will be saved to project file and can be reopen.]]></comment>
+		</callout>
+		<group name="usuario" color="ECF0F7" >
+			<entity schema="congreso" name="usuario" />
+			<entity schema="congreso" name="asiste_evento" />
+			<entity schema="congreso" name="asiste_visita" />
+			<entity schema="congreso" name="datos_fiscales" />
+			<entity schema="congreso" name="evento_social" />
+			<entity schema="congreso" name="ficha_deposito" />
+			<entity schema="congreso" name="visita_indus" />
+			<entity schema="congreso" name="pagos_efectivo" />
+			<entity schema="congreso" name="tipo_user" />
+		</group>
+		<group name="asiste_taller" color="EEF7EC" >
+			<entity schema="congreso" name="asiste_taller" />
+			<entity schema="congreso" name="taller" />
+			<entity schema="congreso" name="tallerista" />
+		</group>
+		<group name="asiste_confer" color="F7F2EC" >
+			<entity schema="congreso" name="asiste_confer" />
+			<entity schema="congreso" name="conferencia" />
+			<entity schema="congreso" name="conferencista" />
+		</group>
+		<group name="administrador" color="ECECF7" >
+			<entity schema="congreso" name="administrador" />
+			<entity schema="congreso" name="egresos" />
+			<entity schema="congreso" name="logos" />
+			<entity schema="congreso" name="mensajes" />
+			<entity schema="congreso" name="datos_reconocimientos" />
+		</group>
+		<script name="Sample SQL Editor" id="Editor_17811ce" language="SQL" >
+			<string><![CDATA[SELECT * 
+FROM
+	congreso.usuario o;]]></string>
+		</script>
+		<browser id="Browse_54b372" name="Sample Relational Data Browse" confirm_updates="y" >
+			<browse_table schema="congreso" entity="usuario" x="20" y="20" width="400" height="300" >
+				<browse_table schema="congreso" entity="asiste_confer" fk="asiste_confer_ibfk_2" x="440" y="20" width="500" height="350" >
+					<browse_table schema="congreso" entity="conferencia" fk="asiste_confer_ibfk_1" x="960" y="20" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query_4d72799" name="Sample Query Builder" >
+			<query_table schema="congreso" name="usuario" alias="u" x="48" y="48" >
+				<column name="id" />
+				<column name="correo" />
+				<column name="nombre" />
+				<column name="apellidos" />
+				<column name="fechUltiAcceso" />
+				<column name="pwd" />
+				<column name="id_tipo" />
+				<column name="estaPago" />
+				<column name="diploCongreso" />
+				<column name="descDiploma" />
+				<query_table schema="congreso" name="asiste_confer" alias="ac" x="240" y="48" fk="asiste_confer_ibfk_2" type="Inner Join" >
+					<column name="id_user" />
+					<column name="id_conferencia" />
+					<column name="asistencia" />
+					<query_table schema="congreso" name="conferencia" alias="c" x="416" y="48" fk="asiste_confer_ibfk_1" type="Inner Join" >
+						<column name="id" />
+						<column name="nombre" />
+						<column name="descripcion" />
+						<column name="lugar_conf" />
+						<column name="fecha" />
+						<column name="hora" />
+						<column name="id_conferencista" />
+						<column name="costo" />
+						<column name="cupo" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+	</layout>
+</project>

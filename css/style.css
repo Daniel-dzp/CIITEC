@@ -1,0 +1,47 @@
+.foto-mini{
+	height: 50px;
+	max-height: 50px;
+	border-radius: 5px;
+}
+
+.foto-usuario{
+	width: 100px;
+	border: 1px solid darkgrey;
+	border-radius: 5px;
+	margin: 5px;
+}
+
+.foto-usuario:hover{
+	width: 110px;
+	margin: 0px;
+}
+
+.icono-editar:hover, .icono-eliminar:hover
+{
+	/*border: 1px solid grey;*/
+	background: lightgrey;
+	border-radius: 4px;
+	margin: 0px;
+	width: 24px;
+}
+
+.icono-editar, .icono-eliminar
+{
+	/*border: 1px solid transparent;*/
+	margin: 2px;
+	width: 20px;
+}
+
+body{
+	/**background: lightgrey;**/
+}
+
+.icono-nuevo-mensaje{
+	width:24px; 
+	margin:2px ;
+}
+
+.icono-nuevo-mensaje:hover{
+	width: 28px;
+	margin:0px ;
+}
